@@ -21,10 +21,21 @@
 - 识读：大模型批量＋人工校读双线；2,802 件另有人工全文识读对照。不确定处以（？）与 □ 标注。
 - 版权：馆藏数字化影像（含水印）仅作学术展示；另行使用请联络馆藏方。
 
+## 技术体制（给接手优化的 LLM）
+
+- **形态**：纯静态站，零框架、零构建、零 CDN 依赖。无后端、无数据库、无打包器。
+- **页面**：`index.html` 单文件自包含（内联 CSS＋vanilla JS，约 300 行）。数据经 `fetch('data/items.json')` 加载后前端渲染。
+- **数据**：`data/items.json`（100 件，含逐页 transcript／fields／stamps／legibility）；由 `../mining/scripts/site100_build.py` 从冻结正典自动生成，**改数据重跑脚本，不手编 JSON**。
+- **图片**：`images/<ssno>/pN.jpg`，原件降采样副本（宽 1000px、JPEG q82，约 49MB／244 张）；卡片用 `loading="lazy"`。
+- **托管**：GitHub Pages（仓库 icgma/qiaopi-100，main 分支根目录）。重新发布＝推 main 即自动构建。
+- **交互现状**：四维筛选 tab、检索（题签/编号/批局）、卡片网格、详情弹层（原件页码切换＋识读/字段两 tab＋前后件导航，支持 Esc 与左右方向键）。
+- **可选优化方向**：图片 srcset 或 AVIF 再压；检索升级为拼音/繁简兼容；详情层同户多件并排对比；无障碍（alt、键盘焦点环）；schema.org 结构化数据与 SEO 元信息。
+
 ## 部署
 
-GitHub Pages（icgma 账户）。重新发布＝把本目录内容推到仓库 main 分支。
+GitHub Pages，仓库 icgma/qiaopi-100，线上地址 https://icgma.github.io/qiaopi-100/ 。
+重新发布＝把本目录内容推到仓库 main 分支（Pages 自动构建）；本机部署副本在 `%TMP%/qiaopi-100-deploy`（gh 当前活动账户是 icgma）。
 
 ## 部署记录
 
-- 2026-11-08 首发版（100 件，四维各 25）。
+- 2026-11-08 首发版上线（100 件，四维各 25；Pages 构建通过，浏览器双页验收通过）。
