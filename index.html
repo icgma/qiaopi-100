@@ -1,0 +1,200 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="侨批为证·精选一百件：汕头大学图书馆藏侨批档案的数字识读成果，按信、家、国、天下四个维度各选二十五件，原件、识读、解读三层并陈。">
+<title>侨批为证 · 精选一百件</title>
+<link rel="icon" href="data:,">
+<style>
+:root{
+  --bg:#f7f4ec; --panel:#fffdf7; --line:#e2dcc9; --ink:#2c2a24; --dim:#8a8371;
+  --xin:#a4462d; --jia:#3f6b52; --guo:#3a5a7a; --tian:#7a5aa0;
+  --serif:"Noto Serif CJK SC","Source Han Serif SC","STZhongsong","SimSun",serif;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.75 var(--serif)}
+a{color:inherit}
+header{border-bottom:1px solid var(--line);background:var(--panel)}
+.wrap{max-width:1180px;margin:0 auto;padding:0 20px}
+h1{margin:0;padding:28px 0 4px;font-size:30px;letter-spacing:3px;font-weight:600}
+h1 small{font-size:15px;letter-spacing:6px;color:var(--dim);margin-left:14px;font-weight:400}
+.sub{color:var(--dim);font-size:13.5px;padding-bottom:18px}
+.sub b{color:var(--ink);font-weight:600}
+/* filter bar */
+#bar{display:flex;flex-wrap:wrap;gap:10px;align-items:center;padding:14px 0;position:sticky;top:0;
+  background:var(--bg);border-bottom:1px solid var(--line);z-index:5}
+.tab{border:1px solid var(--line);background:var(--panel);border-radius:20px;padding:4px 16px;
+  cursor:pointer;font:inherit;font-size:14px;color:var(--ink)}
+.tab.on{background:var(--ink);color:#fff;border-color:var(--ink)}
+#q{flex:1;min-width:160px;max-width:340px;border:1px solid var(--line);background:var(--panel);
+  border-radius:8px;padding:7px 12px;font:inherit;outline:none}
+#q:focus{border-color:var(--ink)}
+#count{color:var(--dim);font-size:13px}
+/* grid */
+#grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(215px,1fr));gap:16px;padding:22px 0 40px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:10px;overflow:hidden;
+  cursor:pointer;transition:transform .15s, box-shadow .15s;display:flex;flex-direction:column}
+.card:hover{transform:translateY(-3px);box-shadow:0 8px 22px rgba(60,50,30,.12)}
+.card img{width:100%;aspect-ratio:5/7;object-fit:cover;display:block;background:#e8e2d2}
+.cbody{padding:10px 12px 12px;flex:1;display:flex;flex-direction:column;gap:4px}
+.cap{font-size:13.5px;line-height:1.5;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.meta{display:flex;justify-content:space-between;align-items:center;margin-top:auto}
+.tag{font-size:11.5px;border-radius:10px;padding:1px 9px;color:#fff;letter-spacing:1px}
+.yr{font-size:12px;color:var(--dim)}
+.ss{font-size:11px;color:var(--dim);font-family:Consolas,monospace}
+/* overlay */
+#ov{position:fixed;inset:0;background:rgba(28,25,18,.72);display:none;z-index:20;overflow-y:auto}
+#ov.on{display:block}
+.box{max-width:1180px;margin:26px auto;background:var(--bg);border-radius:12px;
+  display:grid;grid-template-columns:minmax(300px,1fr) minmax(320px,480px);gap:0;overflow:hidden}
+@media(max-width:860px){.box{grid-template-columns:1fr}}
+#left{background:#ece7d8;padding:18px}
+#img{width:100%;border-radius:6px;display:block;box-shadow:0 4px 14px rgba(0,0,0,.18)}
+#pgs{display:flex;gap:8px;margin-top:12px;flex-wrap:wrap}
+.pg{border:1px solid var(--line);background:var(--panel);border-radius:6px;padding:3px 12px;cursor:pointer;font:inherit;font-size:13px}
+.pg.on{background:var(--ink);color:#fff}
+#right{padding:20px 24px 28px}
+#rtop{display:flex;justify-content:space-between;align-items:baseline;gap:10px}
+#rss{font-family:Consolas,monospace;font-size:12.5px;color:var(--dim)}
+#close{position:fixed;top:14px;right:18px;font-size:30px;background:none;border:0;color:#fff;cursor:pointer;line-height:1}
+#nav{display:flex;gap:10px;margin-top:8px}
+#nav button{border:1px solid var(--line);background:var(--panel);border-radius:8px;padding:5px 14px;cursor:pointer;font:inherit}
+#rcap{font-size:17px;line-height:1.7;margin:8px 0 2px}
+#rgist{background:var(--panel);border-left:3px solid var(--ink);padding:10px 14px;margin:12px 0;border-radius:0 8px 8px 0;font-size:14px;color:#4c483c}
+.rtabs{display:flex;gap:8px;margin:14px 0 8px}
+.rt{border:1px solid var(--line);background:var(--panel);border-radius:18px;padding:3px 14px;cursor:pointer;font-size:13.5px}
+.rt.on{background:var(--ink);color:#fff;border-color:var(--ink)}
+#rbody{font-size:14px}
+#tr{white-space:pre-wrap;background:var(--panel);border:1px solid var(--line);border-radius:8px;
+  padding:14px 16px;max-height:46vh;overflow-y:auto;line-height:2}
+.kv{display:grid;grid-template-columns:74px 1fr;gap:4px 10px;background:var(--panel);
+  border:1px solid var(--line);border-radius:8px;padding:12px 16px}
+.kv b{color:var(--dim);font-weight:400;font-size:13px}
+.stamps li{margin-bottom:6px;color:#4c483c;font-size:13.5px}
+footer{border-top:1px solid var(--line);background:var(--panel);color:var(--dim);font-size:12.5px;line-height:1.9;padding:20px 0 30px}
+footer b{color:var(--ink)}
+.empty{grid-column:1/-1;text-align:center;color:var(--dim);padding:60px 0}
+</style>
+</head>
+<body>
+<header><div class="wrap">
+  <h1>侨批为证<small>精选一百件</small></h1>
+  <div class="sub">一封批里的<b>信 · 家 · 国 · 天下</b>　｜　汕头大学图书馆藏侨批档案 · 数字识读成果　｜　自一万件冻结正典中选出，四维各二十五件</div>
+</div></header>
+
+<div class="wrap">
+  <div id="bar">
+    <button class="tab on" data-d="全部">全部 100</button>
+    <button class="tab" data-d="信">信 25</button>
+    <button class="tab" data-d="家">家 25</button>
+    <button class="tab" data-d="国">国 25</button>
+    <button class="tab" data-d="天下">天下 25</button>
+    <input id="q" type="search" placeholder="检索寄批人 / 收批人 / 编号…">
+    <span id="count"></span>
+  </div>
+  <div id="grid"></div>
+</div>
+
+<div id="ov">
+  <button id="close" title="关闭">×</button>
+  <div class="box">
+    <div id="left">
+      <img id="img" alt="侨批原件">
+      <div id="pgs"></div>
+    </div>
+    <div id="right">
+      <div id="rtop"><span class="tag" id="rdimtag"></span><span id="rss"></span></div>
+      <div id="rcap"></div>
+      <div id="rgist"></div>
+      <div class="rtabs">
+        <button class="rt on" data-t="tr">识读</button>
+        <button class="rt" data-t="kv">字段与戳记</button>
+      </div>
+      <div id="rbody"></div>
+      <div id="nav"><button id="prev">‹ 上一件</button><button id="next">下一件 ›</button></div>
+    </div>
+  </div>
+</div>
+
+<footer><div class="wrap">
+  <b>数据与口径</b>：原件为汕头大学图书馆藏、CADAL 数字化的侨批扫描档案（含水印）。本项目自实收唯一
+  48,830 件中冻结 10,000 件为分析正典（22,974 页），本站为其精选百件；识读由大模型批量完成并经人工校读双线质检，
+  2,802 件另有人工全文识读对照。<b>展示三层</b>：原件影像、识读文本、按四维所作解读。<br>
+  <b>版权提示</b>：馆藏数字化影像仅作学术展示之用，如需另行使用请联络馆藏方。识读文本如需引用，请注明出自本项目并附编号。<br>
+  <b>侨批为证：一封批里的家国天下</b>　广东大学生科技创新培育专项资金申报项目工作成果　·　指导单位：汕头大学长江新闻与传播学院
+</div></footer>
+
+<script>
+const DIMC = {"信":"var(--xin)","家":"var(--jia)","国":"var(--guo)","天下":"var(--tian)"};
+const DIMX = {
+  "信":"诚信系统：批局以盖章作保、承诺上戳、字号存续、回批确认撑起信用。",
+  "家":"两地的家：一笔钱寄到母亲与妻子手中，在家人之间分派。",
+  "国":"动荡年代：战争与币制崩坏之中，存世批件显示这条路未曾中断。",
+  "天下":"南洋网络：一个潮汕村子经批局与埠头连通曼谷、新加坡等地。"
+};
+let ITEMS=[], view=[], cur=0, curPg=0, curTab='tr';
+const $=s=>document.querySelector(s);
+
+function card(it,i){
+  const img = it.pages[0] ? it.pages[0].img : '';
+  const yr = (it.pages[0]&&it.pages[0].date.match(/(19|20)\d{2}/)) ? it.pages[0].date.match(/(19|20)\d{2}/)[0] : '';
+  return `<div class="card" data-i="${i}">
+    <img src="${img}" loading="lazy" alt="${it.ssno}">
+    <div class="cbody">
+      <div class="cap">${esc(it.caption)}</div>
+      <div class="meta"><span class="tag" style="background:${DIMC[it.dim]}">${it.dim}</span>
+      <span class="yr">${yr||''}</span></div>
+      <div class="ss">${it.ssno}${it.port?' · '+it.port:''}</div>
+    </div></div>`;
+}
+function esc(s){return (s||'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]))}
+function render(){
+  const q=$('#q').value.trim();
+  const d=document.querySelector('.tab.on').dataset.d;
+  view=ITEMS.map((it,i)=>({it,i})).filter(o=>(d==='全部'||o.it.dim===d)&&(!q||o.it.caption.includes(q)||o.it.ssno.includes(q)||o.it.bureau.includes(q)));
+  $('#count').textContent=`${view.length} 件`;
+  $('#grid').innerHTML = view.length? view.map(o=>card(o.it,o.i)).join('') : '<div class="empty">没有匹配的件</div>';
+}
+document.querySelectorAll('.tab').forEach(t=>t.onclick=()=>{document.querySelectorAll('.tab').forEach(x=>x.classList.remove('on'));t.classList.add('on');render()});
+$('#q').oninput=render;
+$('#grid').onclick=e=>{const c=e.target.closest('.card'); if(c) open(+c.dataset.i)};
+
+function open(i){ cur=ITEMS[i]? i: 0; curPg=0; curTab='tr'; fill(); $('#ov').classList.add('on'); document.body.style.overflow='hidden'; }
+function close(){ $('#ov').classList.remove('on'); document.body.style.overflow=''; }
+$('#close').onclick=close;
+$('#ov').addEventListener('click',e=>{if(e.target.id==='ov')close()});
+document.addEventListener('keydown',e=>{if(!$('#ov').classList.contains('on'))return;
+  if(e.key==='Escape')close(); if(e.key==='ArrowLeft')$('#prev').click(); if(e.key==='ArrowRight')$('#next').click();});
+$('#prev').onclick=()=>{const p=ITEMS[cur-1];if(p)open(cur-1)};
+$('#next').onclick=()=>{const n=ITEMS[cur+1];if(n)open(cur+1)};
+
+function fill(){
+  const it=ITEMS[cur], pg=it.pages[curPg]||it.pages[0];
+  $('#img').src=pg.img;
+  $('#rss').textContent='馆藏编号 '+it.ssno;
+  const t=$('#rdimtag'); t.textContent=it.dim; t.style.background=DIMC[it.dim];
+  $('#rcap').textContent=it.caption+(it.bureau?`　经手：${it.bureau}`:'');
+  $('#rgist').innerHTML = `${esc(DIMX[it.dim])}${it.gist? '<br>大意：'+esc(it.gist):''}`;
+  $('#pgs').innerHTML=it.pages.map((p,i)=>`<button class="pg${i===curPg?' on':''}" data-p="${i}">${p.p}</button>`).join('');
+  document.querySelectorAll('.pg').forEach(b=>b.onclick=()=>{curPg=+b.dataset.p;fill()});
+  document.querySelectorAll('.rt').forEach(b=>b.classList.toggle('on',b.dataset.t===curTab));
+  if(curTab==='tr'){
+    $('#rbody').innerHTML=`<div id="tr">${esc(pg.transcript)||'（该页无转录文本）'}</div>`;
+  }else{
+    const kvs=[['寄批人',pg.sender],['收批人',pg.recipient],['地址',pg.address],['金额',pg.amount_cn],
+      ['日期',pg.date],['币种',it.currency],['清晰度',pg.legibility? '★'.repeat(pg.legibility):'']]
+      .filter(k=>k[1]).map(k=>`<b>${k[0]}</b><span>${esc(k[1])}</span>`).join('');
+    const st=(pg.stamps||[]).map(s=>`<li>${esc(s)}</li>`).join('');
+    $('#rbody').innerHTML=`<div class="kv">${kvs}</div>${st?'<ul class="stamps" style="margin:10px 0 0;padding-left:20px">'+st+'</ul>':''}
+      <p style="color:var(--dim);font-size:12.5px;margin-top:12px">识读为大模型批量产出并经人工校读；不确定处以（？）与 □ 标注。</p>`;
+  }
+}
+document.querySelectorAll('.rt').forEach(b=>b.onclick=()=>{curTab=b.dataset.t;fill()});
+
+fetch('data/items.json').then(r=>r.json()).then(d=>{
+  ITEMS=d.items; render();
+});
+</script>
+</body>
+</html>
